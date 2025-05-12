@@ -13,6 +13,8 @@
     "build:summary": "node scripts/build-hole-summary.js"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.3",
+    "@uiw/react-codemirror": "^4.23.12",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

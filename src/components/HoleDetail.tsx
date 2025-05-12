@@ -4,13 +4,29 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { load } from 'js-yaml';
 import { DifficultyLevel } from '@/models/Hole';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import TestRunner from './TestRunner';
 
 interface HoleDetailProps {
   holeId: string;
 }
 
-interface HoleElement {
+interface Parameter {
+  name: string;
   type: string;
+}
+
+interface TestCase {
+  name: string;
+  code: string;
+  expected?: any;
+  expected_error?: boolean;
+  hint: string;
+}
+
+interface SolutionApproach {
+  name: string;
   description: string;
 }
 
@@ -18,9 +34,15 @@ interface HoleYamlData {
   id: string;
   name: string;
   description: string;
-  elements: HoleElement[];
   difficulty: DifficultyLevel;
   par: number;
+  function_name: string;
+  parameters: Parameter[];
+  return_type: string;
+  starting_code: string;
+  tests: TestCase[];
+  solution_approaches?: SolutionApproach[];
+  learning_objectives?: string[];
 }
 
 // Helper function to get color for difficulty level
@@ -41,99 +63,12 @@ const getDifficultyColor = (difficulty: DifficultyLevel): string => {
   }
 };
 
-// Helper function to get icon for element type
-const getElementIcon = (type: string): React.ReactElement => {
-  switch (type.toLowerCase()) {
-    case 'green':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
-          <circle cx="12" cy="12" r="10" fill="#81c784" stroke="#2e7d32" strokeWidth="1.5" />
-          <circle cx="12" cy="12" r="2" fill="#fff" />
-        </svg>
-      );
-    case 'bunker':
-    case 'bunkers':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
-          <path d="M4 18C4 16 6 14 8 14C11 14 10 18 13 18C16 18 18 16 20 16" stroke="#b98f52" strokeWidth="2" strokeLinecap="round" fill="none" />
-          <path d="M4 14C4 12 6 10 8 10C11 10 10 14 13 14C16 14 18 12 20 12" stroke="#b98f52" strokeWidth="2" strokeLinecap="round" fill="none" />
-          <rect x="2" y="16" width="20" height="6" rx="1" fill="#fff9c4" />
-        </svg>
-      );
-    case 'water_hazard':
-    case 'water':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
-          <path d="M4 12C6 10 8 12 10 10C12 8 14 10 16 8C18 6 20 8 20 8V20H4V12Z" fill="#4fc3f7" />
-          <path d="M4 16C6 14 8 16 10 14C12 12 14 14 16 12C18 10 20 12 20 12" stroke="#0288d1" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-        </svg>
-      );
-    case 'slope':
-    case 'slopes':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="3" y1="20" x2="21" y2="3" />
-          <line x1="21" y1="20" x2="12" y2="12" />
-        </svg>
-      );
-    case 'break_marker':
-    case 'break_markers':
-    case 'break':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 4v16" />
-          <path d="M4 12h10" />
-          <path d="M14 12l3 3-3 3" />
-        </svg>
-      );
-    case 'fringe':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
-          <circle cx="12" cy="12" r="10" fill="#a5d6a7" stroke="#2e7d32" strokeWidth="1.5" />
-          <path d="M6 12C8 8 12 8 12 12C12 16 16 16 18 12" stroke="#2e7d32" strokeWidth="1.5" fill="none" />
-        </svg>
-      );
-    case 'distance_markers':
-    case 'distance':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-        </svg>
-      );
-    case 'collar':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
-          <circle cx="12" cy="12" r="10" fill="#4caf50" stroke="#1b5e20" strokeWidth="1.5" />
-          <circle cx="12" cy="12" r="6" fill="#1b5e20" stroke="#4caf50" strokeWidth="1.5" />
-          <circle cx="12" cy="12" r="3" fill="#a5d6a7" />
-        </svg>
-      );
-    case 'tier':
-    case 'ridge':
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="3" y1="8" x2="21" y2="8" />
-          <line x1="3" y1="16" x2="21" y2="16" />
-          <path d="M8 4v16" />
-          <path d="M16 4v16" />
-        </svg>
-      );
-    default:
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 16v-4" />
-          <path d="M12 8h.01" />
-        </svg>
-      );
-  }
-};
-
 export default function HoleDetail({ holeId }: HoleDetailProps) {
   const [holeData, setHoleData] = useState<HoleYamlData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [code, setCode] = useState('');
+  const [showSolutionApproaches, setShowSolutionApproaches] = useState(false);
 
   useEffect(() => {
     const fetchHoleData = async () => {
@@ -150,6 +85,7 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
         const data = load(yamlText) as HoleYamlData;
         
         setHoleData(data);
+        setCode(data.starting_code);
         setError(null);
       } catch (err) {
         console.error('Error loading hole data:', err);
@@ -169,7 +105,7 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
           <div className="w-12 h-12 rounded-full bg-primary/20 mb-4"></div>
           <div className="h-4 bg-primary/20 rounded w-48 mb-2.5"></div>
           <div className="h-3 bg-primary/20 rounded w-64"></div>
-          <div aria-live="polite" className="sr-only">Loading hole data...</div>
+          <div aria-live="polite" className="sr-only">Loading challenge data...</div>
         </div>
       </div>
     );
@@ -180,7 +116,7 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
       <div className="p-8 text-center">
         <div className="bg-red-100 p-4 rounded-lg text-red-800">
           <p className="font-semibold">Error</p>
-          <p>{error || 'Failed to load hole data'}</p>
+          <p>{error || 'Failed to load challenge data'}</p>
         </div>
       </div>
     );
@@ -192,15 +128,15 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center">
             <Image
-              src="/golf-flag.svg"
-              alt="Golf Flag"
+              src="/file.svg"
+              alt="Code File"
               width={32}
               height={32}
               className="dark:invert mr-3"
             />
             <div>
               <h1 className="text-2xl font-bold text-primary">{holeData.name}</h1>
-              <p className="text-foreground text-sm">Hole ID: {holeData.id}</p>
+              <p className="text-foreground text-sm">Challenge #{holeData.id}</p>
             </div>
           </div>
           <div className="flex flex-col items-end">
@@ -210,15 +146,14 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
                 {holeData.difficulty.charAt(0).toUpperCase() + holeData.difficulty.slice(1)}
               </span>
             </div>
-            <button className="flex items-center gap-1 bg-primary text-white px-4 py-2 rounded-full text-sm hover:opacity-90 transition-opacity">
-              <Image
-                src="/golf-ball.svg"
-                alt="Golf Ball"
-                width={16}
-                height={16}
-                className="invert"
-              />
-              Play This Hole
+            <button 
+              className="flex items-center gap-1 bg-primary text-white px-4 py-2 rounded-full text-sm hover:opacity-90 transition-opacity"
+              onClick={() => setShowSolutionApproaches(!showSolutionApproaches)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+              </svg>
+              {showSolutionApproaches ? 'Hide Hints' : 'Show Hints'}
             </button>
           </div>
         </div>
@@ -228,37 +163,68 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
         </div>
       </div>
       
-      <div className="p-6">
-        <h2 className="text-xl font-semibold text-primary mb-4">Hole Elements</h2>
-        <div className="grid gap-4">
-          {holeData.elements.map((element, index) => (
-            <div 
-              key={`${element.type}-${index}`} 
-              className="bg-white bg-opacity-60 p-4 rounded-lg flex items-start gap-3"
-            >
-              {getElementIcon(element.type)}
-              <div>
-                <h3 className="font-medium text-primary capitalize">
-                  {element.type.replace('_', ' ')}
-                </h3>
-                <p className="text-sm text-foreground">{element.description}</p>
-              </div>
-            </div>
-          ))}
+      <div className="p-6 border-b border-primary/30">
+        <h2 className="text-xl font-semibold text-primary mb-2">Function Signature</h2>
+        <div className="bg-gray-100 p-4 rounded-lg font-mono text-sm">
+          <p>
+            <span className="text-blue-600">function</span> 
+            <span className="text-purple-600"> {holeData.function_name}</span>
+            (
+            {holeData.parameters.map((param, index) => (
+              <span key={param.name}>
+                <span className="text-green-600">{param.name}</span>: 
+                <span className="text-orange-600">{param.type}</span>
+                {index < holeData.parameters.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+            ): <span className="text-orange-600">{holeData.return_type}</span>
+          </p>
         </div>
       </div>
       
-      <div className="p-6 bg-primary bg-opacity-10 border-t border-primary/30">
-        <h2 className="text-xl font-semibold text-primary mb-4">Playing Tips</h2>
-        <div className="bg-white bg-opacity-70 p-4 rounded-lg">
-          <ul className="list-disc list-inside space-y-2 text-foreground">
-            <li>Study the green carefully before putting</li>
-            <li>Pay attention to the {holeData.elements.find(e => e.type.includes('slope'))?.type || 'slopes'}</li>
-            <li>Adjust your stroke for the {holeData.difficulty} difficulty level</li>
-            <li>Focus on speed control for optimal results</li>
-          </ul>
+      <div className="p-6">
+        <h2 className="text-xl font-semibold text-primary mb-4">Your Implementation</h2>
+        <div className="border border-gray-300 rounded-lg overflow-hidden">
+          <CodeMirror
+            value={code}
+            height="200px"
+            theme="light"
+            extensions={[javascript({ jsx: true })]}
+            onChange={(value) => setCode(value)}
+          />
         </div>
+        
+        <TestRunner code={code} tests={holeData.tests} />
       </div>
+      
+      {showSolutionApproaches && holeData.solution_approaches && (
+        <div className="p-6 bg-primary bg-opacity-10 border-t border-primary/30">
+          <h2 className="text-xl font-semibold text-primary mb-4">Solution Approaches</h2>
+          <div className="bg-white bg-opacity-70 p-4 rounded-lg">
+            <div className="space-y-4">
+              {holeData.solution_approaches.map((approach) => (
+                <div key={approach.name} className="border-b border-gray-200 pb-3 last:border-b-0 last:pb-0">
+                  <h3 className="font-medium text-primary">{approach.name}</h3>
+                  <p className="text-sm text-foreground">{approach.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {showSolutionApproaches && holeData.learning_objectives && (
+        <div className="p-6 bg-primary bg-opacity-5 border-t border-primary/30">
+          <h2 className="text-xl font-semibold text-primary mb-4">Learning Objectives</h2>
+          <div className="bg-white bg-opacity-70 p-4 rounded-lg">
+            <ul className="list-disc list-inside space-y-2 text-foreground">
+              {holeData.learning_objectives.map((objective, index) => (
+                <li key={index}>{objective}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

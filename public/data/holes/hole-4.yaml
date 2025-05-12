@@ -1,16 +1,91 @@
 id: "4"
-name: "Bunker Alley"
-description: "A strategic hole with bunkers on both sides creating a narrow alley to the green. Precision is key."
-elements:
-  - type: "green"
-    description: "Relatively flat green with a slight crown in the center"
-  - type: "bunkers"
-    description: "Two deep bunkers flanking both sides of the approach"
-  - type: "fringe"
-    description: "Standard fringe with consistent speed"
-  - type: "slope"
-    description: "Subtle right-to-left slope of 1.8%"
-  - type: "distance_markers"
-    description: "Distance markers at 5, 10, and 15 feet"
+name: "Anagram Checker"
+description: "Create a function that determines if two strings are anagrams of each other. An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, using all the original letters exactly once."
 difficulty: "intermediate"
-par: 3
+par: 8 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "areAnagrams"
+parameters:
+  - name: "str1"
+    type: "string"
+  - name: "str2"
+    type: "string"
+return_type: "boolean"
+
+# Starting template code
+starting_code: |
+  function areAnagrams(str1, str2) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles empty strings"
+    code: "areAnagrams('', '')"
+    expected: true
+    hint: "Two empty strings are anagrams of each other"
+
+  - name: "handles single character"
+    code: "areAnagrams('a', 'a')"
+    expected: true
+    hint: "Two identical characters are anagrams of each other"
+
+  - name: "identifies simple anagrams"
+    code: "areAnagrams('listen', 'silent')"
+    expected: true
+    hint: "'listen' and 'silent' use the exact same letters"
+
+  - name: "identifies non-anagrams"
+    code: "areAnagrams('hello', 'world')"
+    expected: false
+    hint: "'hello' and 'world' don't use the same letters"
+
+  - name: "handles different lengths"
+    code: "areAnagrams('hello', 'hi')"
+    expected: false
+    hint: "Strings of different lengths can't be anagrams"
+
+  - name: "ignores case sensitivity"
+    code: "areAnagrams('Tea', 'Eat')"
+    expected: true
+    hint: "The function should ignore case differences"
+
+  - name: "handles spaces"
+    code: "areAnagrams('astronomer', 'moon starer')"
+    expected: true
+    hint: "The function should ignore spaces"
+
+  - name: "handles punctuation"
+    code: "areAnagrams('a gentleman', 'elegant man!')"
+    expected: true
+    hint: "The function should ignore punctuation"
+
+  - name: "identifies close but not exact anagrams"
+    code: "areAnagrams('debit card', 'bad credit')"
+    expected: true
+    hint: "These phrases are anagrams if you ignore spaces and case"
+
+  - name: "identifies mismatched letter counts"
+    code: "areAnagrams('hello', 'helloo')"
+    expected: false
+    hint: "Strings with different letter counts are not anagrams"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Sort and Compare"
+    description: "Clean the strings, sort the letters, and compare the results"
+
+  - name: "Character Frequency Map"
+    description: "Count the frequency of each character in both strings and compare the counts"
+
+  - name: "ASCII Sum Comparison"
+    description: "Sum the ASCII values of all characters in both strings (quick but potentially flawed)"
+
+# Learning objectives
+learning_objectives:
+  - "String manipulation and normalization"
+  - "Character frequency counting"
+  - "Using objects/hash maps to track character counts"
+  - "Understanding sorting algorithms"
+  - "Implementing efficient string comparison algorithms"

@@ -1,59 +1,59 @@
 [
   {
     "id": "1",
-    "name": "Gentle Slope",
-    "description": "A straightforward hole with a gentle left-to-right slope. Perfect for beginners to practice reading breaks.",
+    "name": "Factorial",
+    "description": "Implement a function that calculates the factorial of a non-negative integer. The factorial of a number is the product of all positive integers less than or equal to that number.",
     "difficulty": "beginner",
-    "par": 2
+    "par": 5
   },
   {
     "id": "2",
-    "name": "Dogleg Right",
-    "description": "A challenging dogleg right that requires precise aim and distance control. The green has multiple tiers.",
+    "name": "Palindrome Checker",
+    "description": "Create a function that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).",
     "difficulty": "intermediate",
-    "par": 3
+    "par": 7
   },
   {
     "id": "3",
-    "name": "Water Hazard Challenge",
-    "description": "A nerve-testing hole with water hazard along the right side. The green has subtle undulations that are difficult to read.",
-    "difficulty": "advanced",
-    "par": 3
+    "name": "FizzBuzz",
+    "description": "Implement the classic FizzBuzz function. For numbers 1 through n, print 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, and 'FizzBuzz' for multiples of both 3 and 5. Otherwise, print the number itself.",
+    "difficulty": "intermediate",
+    "par": 10
   },
   {
     "id": "4",
-    "name": "Bunker Alley",
-    "description": "A strategic hole with bunkers on both sides creating a narrow alley to the green. Precision is key.",
+    "name": "Anagram Checker",
+    "description": "Create a function that determines if two strings are anagrams of each other. An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, using all the original letters exactly once.",
     "difficulty": "intermediate",
-    "par": 3
+    "par": 8
   },
   {
     "id": "5",
-    "name": "Double Break",
-    "description": "An expert-level hole featuring a double breaking putt that challenges even the most skilled golfers.",
-    "difficulty": "expert",
-    "par": 3
+    "name": "Two Sum",
+    "description": "Implement a function that finds two numbers in an array that add up to a specific target. Return the indices of these two numbers as an array, where index1 < index2.",
+    "difficulty": "advanced",
+    "par": 12
   },
   {
     "id": "6",
-    "name": "The Long Putt",
-    "description": "Test your distance control with this extra long putting challenge. Requires both power and finesse.",
+    "name": "Roman to Integer",
+    "description": "Create a function that converts a Roman numeral to its integer value. Roman numerals consist of combinations of letters from the Latin alphabet: I, V, X, L, C, D, and M.",
     "difficulty": "intermediate",
-    "par": 3
+    "par": 15
   },
   {
     "id": "7",
-    "name": "Challenging Elevation",
-    "description": "A severe uphill putt that tests your ability to judge speed and power on an elevated green.",
-    "difficulty": "advanced",
-    "par": 3
+    "name": "Valid Parentheses",
+    "description": "Create a function that determines if a string containing only the characters '(', ')', '{', '}', '[' and ']' has valid parentheses. An input string is valid if open brackets are closed by the same type of brackets and in the correct order.",
+    "difficulty": "intermediate",
+    "par": 15
   },
   {
     "id": "8",
-    "name": "The Island Green",
-    "description": "An intimidating island green surrounded by water. Mental focus is key to conquering this challenging hole.",
-    "difficulty": "expert",
-    "par": 3
+    "name": "Longest Common Prefix",
+    "description": "Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string.",
+    "difficulty": "advanced",
+    "par": 10
   },
   {
     "id": "9",

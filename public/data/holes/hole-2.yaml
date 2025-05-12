@@ -1,16 +1,75 @@
 id: "2"
-name: "Dogleg Right"
-description: "A challenging dogleg right that requires precise aim and distance control. The green has multiple tiers."
-elements:
-  - type: "green"
-    description: "Multi-tiered green with a prominent ridge dividing upper and lower sections"
-  - type: "fringe"
-    description: "Slightly longer fringe that will slow the ball considerably"
-  - type: "bunker"
-    description: "Small bunker guarding the right side approach"
-  - type: "slope"
-    description: "Back-to-front slope of 3.5% on the upper tier"
-  - type: "break_marker"
-    description: "Double break with complex read required"
+name: "Palindrome Checker"
+description: "Create a function that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization)."
 difficulty: "intermediate"
-par: 3
+par: 7 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "isPalindrome"
+parameters:
+  - name: "str"
+    type: "string"
+return_type: "boolean"
+
+# Starting template code
+starting_code: |
+  function isPalindrome(str) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles empty string"
+    code: "isPalindrome('')"
+    expected: true
+    hint: "An empty string reads the same forward and backward"
+
+  - name: "handles single character"
+    code: "isPalindrome('a')"
+    expected: true
+    hint: "A single character is always a palindrome"
+
+  - name: "identifies simple palindrome"
+    code: "isPalindrome('mom')"
+    expected: true
+    hint: "'mom' reads the same forward and backward"
+
+  - name: "identifies non-palindrome"
+    code: "isPalindrome('hello')"
+    expected: false
+    hint: "'hello' is not a palindrome as it reads 'olleh' backward"
+
+  - name: "ignores case sensitivity"
+    code: "isPalindrome('Mom')"
+    expected: true
+    hint: "The function should ignore case differences"
+
+  - name: "ignores spaces"
+    code: "isPalindrome('race car')"
+    expected: true
+    hint: "After removing spaces, 'race car' becomes 'racecar', which is a palindrome"
+
+  - name: "ignores punctuation"
+    code: "isPalindrome('A man, a plan, a canal: Panama!')"
+    expected: true
+    hint: "After removing punctuation and spaces, this phrase is a palindrome"
+
+  - name: "handles numbers"
+    code: "isPalindrome('12321')"
+    expected: true
+    hint: "Numbers can also be palindromes"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "String Reversal Comparison"
+    description: "Clean the input, reverse the string, and compare with the original"
+
+  - name: "Two-Pointer Technique"
+    description: "Use pointers at the beginning and end of the string, moving inward while comparing characters"
+
+# Learning objectives
+learning_objectives:
+  - "String manipulation and normalization"
+  - "Regular expressions for cleaning input"
+  - "Understanding string comparison algorithms"
+  - "Handling edge cases in string processing"

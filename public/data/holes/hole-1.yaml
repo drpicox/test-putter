@@ -1,14 +1,70 @@
 id: "1"
-name: "Gentle Slope"
-description: "A straightforward hole with a gentle left-to-right slope. Perfect for beginners to practice reading breaks."
-elements:
-  - type: "green"
-    description: "Smooth putting surface with a 2% slope from left to right"
-  - type: "fringe"
-    description: "Well-maintained fringe with consistent speed"
-  - type: "break_marker"
-    description: "Subtle break point at 4 feet from the hole"
-  - type: "distance_markers"
-    description: "Distance markers at 3, 6, and 9 feet"
+name: "Factorial"
+description: "Implement a function that calculates the factorial of a non-negative integer. The factorial of a number is the product of all positive integers less than or equal to that number."
 difficulty: "beginner"
-par: 2
+par: 5 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "factorial"
+parameters:
+  - name: "n"
+    type: "number"
+return_type: "number"
+
+# Starting template code
+starting_code: |
+  function factorial(n) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles zero input"
+    code: "factorial(0)"
+    expected: 1
+    hint: "The factorial of 0 is defined as 1"
+
+  - name: "handles one input"
+    code: "factorial(1)"
+    expected: 1
+    hint: "The factorial of 1 is just 1"
+
+  - name: "calculates factorial for 2"
+    code: "factorial(2)"
+    expected: 2
+    hint: "factorial(2) = 2 × 1 = 2"
+
+  - name: "calculates factorial for 3"
+    code: "factorial(3)"
+    expected: 6
+    hint: "factorial(3) = 3 × 2 × 1 = 6"
+
+  - name: "calculates factorial for 5"
+    code: "factorial(5)"
+    expected: 120
+    hint: "factorial(5) = 5 × 4 × 3 × 2 × 1 = 120"
+
+  - name: "handles larger numbers"
+    code: "factorial(10)"
+    expected: 3628800
+    hint: "factorial(10) = 10 × 9 × ... × 1 = 3628800"
+
+  - name: "throws error for negative numbers"
+    code: "factorial(-1)"
+    expected_error: true
+    hint: "Factorial is not defined for negative numbers"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Iterative"
+    description: "Use a loop to multiply all numbers from 1 to n"
+
+  - name: "Recursive"
+    description: "Define factorial in terms of itself: factorial(n) = n * factorial(n-1)"
+
+# Learning objectives
+learning_objectives:
+  - "Understanding basic looping or recursion"
+  - "Implementing mathematical functions"
+  - "Handling edge cases and input validation"
+  - "Writing concise, readable code"

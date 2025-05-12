@@ -1,16 +1,92 @@
 id: "8"
-name: "The Island Green"
-description: "An intimidating island green surrounded by water. Mental focus is key to conquering this challenging hole."
-elements:
-  - type: "green"
-    description: "Island green completely surrounded by water"
-  - type: "water_hazard"
-    description: "Water hazard encircling the entire green"
-  - type: "fringe"
-    description: "Narrow fringe providing limited safe landing area"
-  - type: "slope"
-    description: "Subtle crown in the center pushing balls towards the edges"
-  - type: "visual_intimidation"
-    description: "Psychological challenge due to water surroundings"
-difficulty: "expert"
-par: 3
+name: "Longest Common Prefix"
+description: "Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string."
+difficulty: "advanced"
+par: 10 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "longestCommonPrefix"
+parameters:
+  - name: "strs"
+    type: "array<string>"
+return_type: "string"
+
+# Starting template code
+starting_code: |
+  function longestCommonPrefix(strs) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles empty array"
+    code: "longestCommonPrefix([])"
+    expected: ""
+    hint: "If the input array is empty, there is no common prefix"
+
+  - name: "handles single string"
+    code: "longestCommonPrefix(['flower'])"
+    expected: "flower"
+    hint: "If there's only one string, it is its own longest common prefix"
+
+  - name: "finds common prefix in simple case"
+    code: "longestCommonPrefix(['flower', 'flow', 'flight'])"
+    expected: "fl"
+    hint: "All strings share the prefix 'fl'"
+
+  - name: "returns empty string when no common prefix"
+    code: "longestCommonPrefix(['dog', 'cat', 'bird'])"
+    expected: ""
+    hint: "These strings have no common prefix"
+
+  - name: "handles all identical strings"
+    code: "longestCommonPrefix(['test', 'test', 'test'])"
+    expected: "test"
+    hint: "When all strings are identical, the entire string is the common prefix"
+
+  - name: "handles one empty string"
+    code: "longestCommonPrefix(['', 'abc', 'def'])"
+    expected: ""
+    hint: "If any string is empty, there can be no common prefix"
+
+  - name: "handles strings of different lengths"
+    code: "longestCommonPrefix(['ab', 'abc', 'abcd'])"
+    expected: "ab"
+    hint: "The common prefix can't be longer than the shortest string"
+
+  - name: "handles case sensitivity"
+    code: "longestCommonPrefix(['Apple', 'app', 'application'])"
+    expected: ""
+    hint: "Prefix matching is case-sensitive, so 'A' and 'a' are different"
+
+  - name: "handles partial matching"
+    code: "longestCommonPrefix(['prefix', 'preface', 'prevent'])"
+    expected: "pre"
+    hint: "Only the first three characters match in all strings"
+
+  - name: "handles very long strings"
+    code: "longestCommonPrefix(['verylongstringwithprefix123', 'verylongstringwithprefix456', 'verylongstringwithprefix789'])"
+    expected: "verylongstringwithprefix"
+    hint: "Common prefixes can be quite long"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Horizontal Scanning"
+    description: "Compare the prefix of the first string with each subsequent string"
+
+  - name: "Vertical Scanning"
+    description: "Compare characters at the same position across all strings"
+
+  - name: "Divide and Conquer"
+    description: "Find the common prefix of halves of the array, then combine results"
+
+  - name: "Binary Search"
+    description: "Use binary search to find the length of the common prefix"
+
+# Learning objectives
+learning_objectives:
+  - "String manipulation and comparison"
+  - "Array iteration techniques"
+  - "Implementing efficient string matching algorithms"
+  - "Handling edge cases in collections"
+  - "Time and space complexity analysis"

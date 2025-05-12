@@ -1,16 +1,75 @@
 id: "3"
-name: "Water Hazard Challenge"
-description: "A nerve-testing hole with water hazard along the right side. The green has subtle undulations that are difficult to read."
-elements:
-  - type: "green"
-    description: "Undulating green with subtle breaks throughout"
-  - type: "water_hazard"
-    description: "Water hazard running along the entire right side"
-  - type: "fringe"
-    description: "Tightly mown fringe that plays fast"
-  - type: "collar"
-    description: "Rough collar that will slow approaching putts"
-  - type: "slope"
-    description: "Slight back-to-front slope with a false front"
-difficulty: "advanced"
-par: 3
+name: "FizzBuzz"
+description: "Implement the classic FizzBuzz function. For numbers 1 through n, print 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, and 'FizzBuzz' for multiples of both 3 and 5. Otherwise, print the number itself."
+difficulty: "intermediate"
+par: 10 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "fizzBuzz"
+parameters:
+  - name: "n"
+    type: "number"
+return_type: "array<string>"
+
+# Starting template code
+starting_code: |
+  function fizzBuzz(n) {
+    // Your implementation here
+    // Return an array of strings representing the FizzBuzz sequence from 1 to n
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles input of 1"
+    code: "fizzBuzz(1)"
+    expected: ["1"]
+    hint: "For n=1, the function should return an array with just the string '1'"
+
+  - name: "handles input of 2"
+    code: "fizzBuzz(2)"
+    expected: ["1", "2"]
+    hint: "For n=2, return ['1', '2']"
+
+  - name: "replaces multiples of 3 with 'Fizz'"
+    code: "fizzBuzz(3)"
+    expected: ["1", "2", "Fizz"]
+    hint: "Since 3 is divisible by 3, it should be replaced with 'Fizz'"
+
+  - name: "replaces multiples of 5 with 'Buzz'"
+    code: "fizzBuzz(5)"
+    expected: ["1", "2", "Fizz", "4", "Buzz"]
+    hint: "Since 5 is divisible by 5, it should be replaced with 'Buzz'"
+
+  - name: "replaces multiples of both 3 and 5 with 'FizzBuzz'"
+    code: "fizzBuzz(15)"
+    expected: ["1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz", "11", "Fizz", "13", "14", "FizzBuzz"]
+    hint: "Since 15 is divisible by both 3 and 5, it should be replaced with 'FizzBuzz'"
+
+  - name: "throws error for negative numbers"
+    code: "fizzBuzz(-1)"
+    expected_error: true
+    hint: "The function should only accept positive integers"
+
+  - name: "handles zero input"
+    code: "fizzBuzz(0)"
+    expected: []
+    hint: "For n=0, return an empty array"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Simple Conditionals"
+    description: "Use if-else statements to check divisibility by 3 and 5"
+
+  - name: "Modulo Operator"
+    description: "Use the modulo operator (%) to check if a number is divisible by 3 or 5"
+
+  - name: "String Concatenation"
+    description: "Build the output string by concatenating 'Fizz' and 'Buzz' based on divisibility"
+
+# Learning objectives
+learning_objectives:
+  - "Understanding conditional logic"
+  - "Using the modulo operator for divisibility checks"
+  - "Array manipulation"
+  - "String concatenation"
+  - "Implementing simple algorithms with multiple rules"

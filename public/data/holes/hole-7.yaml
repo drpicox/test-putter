@@ -1,16 +1,99 @@
 id: "7"
-name: "Challenging Elevation"
-description: "A severe uphill putt that tests your ability to judge speed and power on an elevated green."
-elements:
-  - type: "green"
-    description: "Elevated green with a significant uphill approach"
-  - type: "fringe"
-    description: "Closely mown fringe that offers little resistance"
-  - type: "slope"
-    description: "Steep 5% uphill grade throughout the putt"
-  - type: "ridge"
-    description: "Subtle ridge near the hole creating a final break"
-  - type: "tier"
-    description: "Green sits on a higher tier requiring extra power"
-difficulty: "advanced"
-par: 3
+name: "Valid Parentheses"
+description: "Create a function that determines if a string containing only the characters '(', ')', '{', '}', '[' and ']' has valid parentheses. An input string is valid if open brackets are closed by the same type of brackets and in the correct order."
+difficulty: "intermediate"
+par: 15 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "isValid"
+parameters:
+  - name: "s"
+    type: "string"
+return_type: "boolean"
+
+# Starting template code
+starting_code: |
+  function isValid(s) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles empty string"
+    code: "isValid('')"
+    expected: true
+    hint: "An empty string has no parentheses to validate"
+
+  - name: "validates simple pair of parentheses"
+    code: "isValid('()')"
+    expected: true
+    hint: "A simple opening and closing parenthesis pair is valid"
+
+  - name: "validates simple pair of square brackets"
+    code: "isValid('[]')"
+    expected: true
+    hint: "A simple opening and closing square bracket pair is valid"
+
+  - name: "validates simple pair of curly braces"
+    code: "isValid('{}')"
+    expected: true
+    hint: "A simple opening and closing curly brace pair is valid"
+
+  - name: "rejects mismatched opening and closing"
+    code: "isValid('(]')"
+    expected: false
+    hint: "Opening and closing brackets must be of the same type"
+
+  - name: "rejects wrong order of opening and closing"
+    code: "isValid('([)]')"
+    expected: false
+    hint: "Brackets must be closed in the correct order"
+
+  - name: "validates multiple nested pairs"
+    code: "isValid('()[]{}')"
+    expected: true
+    hint: "Multiple pairs of parentheses in sequence are valid"
+
+  - name: "validates deeply nested structures"
+    code: "isValid('{[()]}')"
+    expected: true
+    hint: "Deeply nested parentheses are valid if each opens and closes properly"
+
+  - name: "rejects unbalanced opening brackets"
+    code: "isValid('(((')"
+    expected: false
+    hint: "An opening bracket must be closed by a matching closing bracket"
+
+  - name: "rejects unbalanced closing brackets"
+    code: "isValid(')))')"
+    expected: false
+    hint: "Every closing bracket must have a matching opening bracket"
+
+  - name: "handles complex valid case"
+    code: "isValid('{[(){}][()]}')"
+    expected: true
+    hint: "Multiple nested structures can be valid"
+
+  - name: "handles complex invalid case"
+    code: "isValid('{[(])}')"
+    expected: false
+    hint: "Brackets must close in the correct order"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Stack Based"
+    description: "Use a stack to track opening brackets and match with closing brackets"
+
+  - name: "Character Counting"
+    description: "Count opening and closing brackets (this approach fails for many cases)"
+
+  - name: "Recursive Solution"
+    description: "Recursively remove valid pairs of brackets until none remain"
+
+# Learning objectives
+learning_objectives:
+  - "Understanding stack data structures"
+  - "Implementing bracket matching algorithms"
+  - "Using maps/objects for bracket pairing"
+  - "Handling edge cases in string processing"
+  - "Recognizing balanced parentheses patterns"

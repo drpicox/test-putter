@@ -1,16 +1,81 @@
 id: "5"
-name: "Double Break"
-description: "An expert-level hole featuring a double breaking putt that challenges even the most skilled golfers."
-elements:
-  - type: "green"
-    description: "Complex green with multiple breaks and undulations"
-  - type: "fringe"
-    description: "Slightly higher-cut fringe creating a clear boundary"
-  - type: "break_markers"
-    description: "Multiple break points requiring careful reading"
-  - type: "slopes"
-    description: "Initial right-to-left break followed by left-to-right break"
-  - type: "grain"
-    description: "Grain running against the second break adding complexity"
-difficulty: "expert"
-par: 3
+name: "Two Sum"
+description: "Implement a function that finds two numbers in an array that add up to a specific target. Return the indices of these two numbers as an array, where index1 < index2."
+difficulty: "advanced"
+par: 12 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "twoSum"
+parameters:
+  - name: "nums"
+    type: "array<number>"
+  - name: "target"
+    type: "number"
+return_type: "array<number>"
+
+# Starting template code
+starting_code: |
+  function twoSum(nums, target) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles basic case"
+    code: "twoSum([2, 7, 11, 15], 9)"
+    expected: [0, 1]
+    hint: "nums[0] + nums[1] = 2 + 7 = 9"
+
+  - name: "handles different example"
+    code: "twoSum([3, 2, 4], 6)"
+    expected: [1, 2]
+    hint: "nums[1] + nums[2] = 2 + 4 = 6"
+
+  - name: "handles duplicates"
+    code: "twoSum([3, 3], 6)"
+    expected: [0, 1]
+    hint: "nums[0] + nums[1] = 3 + 3 = 6"
+
+  - name: "handles larger arrays"
+    code: "twoSum([1, 3, 4, 2, 5], 6)"
+    expected: [1, 2]
+    hint: "nums[1] + nums[2] = 3 + 3 = 6"
+
+  - name: "handles negative numbers"
+    code: "twoSum([-1, -2, -3, -4, -5], -8)"
+    expected: [2, 4]
+    hint: "nums[2] + nums[4] = -3 + (-5) = -8"
+
+  - name: "handles zero target"
+    code: "twoSum([0, 4, 3, 0], 0)"
+    expected: [0, 3]
+    hint: "nums[0] + nums[3] = 0 + 0 = 0"
+
+  - name: "handles no solution"
+    code: "twoSum([1, 2, 3, 4], 10)"
+    expected_error: true
+    hint: "If no solution exists, throw an error"
+
+  - name: "handles unsorted array"
+    code: "twoSum([9, 2, 5, 6], 11)"
+    expected: [0, 2]
+    hint: "nums[0] + nums[2] = 9 + 2 = 11"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Brute Force"
+    description: "Check every pair of numbers using nested loops"
+
+  - name: "Two-Pass Hash Table"
+    description: "Use a hash map to store each element's value and index, then check for complements"
+
+  - name: "One-Pass Hash Table"
+    description: "Check for each element's complement while building the hash map"
+
+# Learning objectives
+learning_objectives:
+  - "Understanding array iteration and element access"
+  - "Using hash maps/objects for efficient lookups"
+  - "Time and space complexity analysis"
+  - "Implementing efficient solutions to common coding problems"
+  - "Understanding tradeoffs between different algorithmic approaches"

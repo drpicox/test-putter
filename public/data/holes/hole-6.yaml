@@ -1,16 +1,109 @@
 id: "6"
-name: "The Long Putt"
-description: "Test your distance control with this extra long putting challenge. Requires both power and finesse."
-elements:
-  - type: "green"
-    description: "Extremely long green requiring a 30+ foot putt"
-  - type: "fringe"
-    description: "Standard fringe surrounding the green"
-  - type: "slope"
-    description: "Mostly flat with a subtle rise in the middle section"
-  - type: "distance_markers"
-    description: "Distance markers at 10, 20, and 30 feet"
-  - type: "speed_transition"
-    description: "Green speed changes slightly in the final third"
+name: "Roman to Integer"
+description: "Create a function that converts a Roman numeral to its integer value. Roman numerals consist of combinations of letters from the Latin alphabet: I, V, X, L, C, D, and M."
 difficulty: "intermediate"
-par: 3
+par: 15 # Par represents the estimated number of code lines needed for a clean solution
+
+# Function signature to implement
+function_name: "romanToInt"
+parameters:
+  - name: "s"
+    type: "string"
+return_type: "number"
+
+# Starting template code
+starting_code: |
+  function romanToInt(s) {
+    // Your implementation here
+  }
+
+# TDD tests in sequence of increasing complexity
+tests:
+  - name: "handles single numeral I"
+    code: "romanToInt('I')"
+    expected: 1
+    hint: "I represents 1 in Roman numerals"
+
+  - name: "handles single numeral V"
+    code: "romanToInt('V')"
+    expected: 5
+    hint: "V represents 5 in Roman numerals"
+
+  - name: "handles single numeral X"
+    code: "romanToInt('X')"
+    expected: 10
+    hint: "X represents 10 in Roman numerals"
+
+  - name: "handles single numeral L"
+    code: "romanToInt('L')"
+    expected: 50
+    hint: "L represents 50 in Roman numerals"
+
+  - name: "handles single numeral C"
+    code: "romanToInt('C')"
+    expected: 100
+    hint: "C represents 100 in Roman numerals"
+
+  - name: "handles single numeral D"
+    code: "romanToInt('D')"
+    expected: 500
+    hint: "D represents 500 in Roman numerals"
+
+  - name: "handles single numeral M"
+    code: "romanToInt('M')"
+    expected: 1000
+    hint: "M represents 1000 in Roman numerals"
+
+  - name: "handles additive combination"
+    code: "romanToInt('III')"
+    expected: 3
+    hint: "III = 1 + 1 + 1 = 3"
+
+  - name: "handles subtractive notation"
+    code: "romanToInt('IV')"
+    expected: 4
+    hint: "IV = 5 - 1 = 4"
+
+  - name: "handles mixed notation"
+    code: "romanToInt('IX')"
+    expected: 9
+    hint: "IX = 10 - 1 = 9"
+
+  - name: "handles complex case"
+    code: "romanToInt('MCMXCIV')"
+    expected: 1994
+    hint: "MCMXCIV = 1000 + (1000 - 100) + (100 - 10) + (5 - 1) = 1994"
+
+  - name: "handles largest valid Roman numeral"
+    code: "romanToInt('MMMCMXCIX')"
+    expected: 3999
+    hint: "MMMCMXCIX = 3000 + 900 + 90 + 9 = 3999"
+
+  - name: "throws error on invalid characters"
+    code: "romanToInt('ABC')"
+    expected_error: true
+    hint: "Only I, V, X, L, C, D, and M are valid Roman numerals"
+
+  - name: "throws error on invalid pattern"
+    code: "romanToInt('IVX')"
+    expected_error: true
+    hint: "This is not a valid Roman numeral pattern"
+
+# Expected solution approaches
+solution_approaches:
+  - name: "Left-to-Right Scan"
+    description: "Scan from left to right and add or subtract values based on the next character"
+
+  - name: "Symbol Map"
+    description: "Use a map or object to store the values of each symbol"
+
+  - name: "Special Cases Handling"
+    description: "Handle special subtractive cases (IV, IX, XL, etc.) separately"
+
+# Learning objectives
+learning_objectives:
+  - "Working with symbol mappings and conversion algorithms"
+  - "Implementing historical number systems"
+  - "String processing and pattern recognition"
+  - "Edge case handling and validation"
+  - "Understanding numerical representations"
