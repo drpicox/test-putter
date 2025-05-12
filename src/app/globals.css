@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Golf green colors */
+  --background: #e8f5e9;
+  --foreground: #1b5e20;
+  --primary: #2e7d32;
+  --secondary: #f9a825;
+  --accent: #558b2f;
+  --putting-green: #81c784;
+  --sand-bunker: #fff9c4;
+  --water-hazard: #4fc3f7;
 }
 
 @theme inline {
@@ -14,8 +21,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Dark golf course at dusk */
+    --background: #1b3a24;
+    --foreground: #a5d6a7;
+    --primary: #4caf50;
+    --secondary: #ffb300;
+    --accent: #7cb342;
+    --putting-green: #2e7d32;
+    --sand-bunker: #fff176;
+    --water-hazard: #0288d1;
   }
 }
 
@@ -23,4 +37,44 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.bg-putting-green {
+  background-color: var(--putting-green);
+}
+
+.bg-sand-bunker {
+  background-color: var(--sand-bunker);
+}
+
+.bg-water-hazard {
+  background-color: var(--water-hazard);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.border-primary {
+  border-color: var(--primary);
 }
