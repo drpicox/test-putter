@@ -20,6 +20,35 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Development Approach
+
+### Test-Driven Development (TDD)
+
+This project follows Test-Driven Development principles. All new features are implemented using the TDD approach:
+
+1. **Write the test first**: Before implementing any feature or model, we write tests that define the expected behavior.
+2. **Run the test (watch it fail)**: Verify that the test fails since the feature hasn't been implemented yet.
+3. **Write the code**: Implement the minimum amount of code to make the test pass.
+4. **Run the test (ensure it passes)**: Verify that the implementation satisfies the test requirements.
+5. **Refactor**: Clean up the code while ensuring tests continue to pass.
+
+### Testing Structure
+
+- **Model Tests**: Located in `src/models/__tests__/` to test data models
+- **Component Tests**: Located in `src/components/__tests__/` to test React components
+- **Data Service Tests**: Located in `src/data/__tests__/` to test data services
+- **Page Tests**: Located in `src/app/__tests__/` to test page components
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode (for development)
+npm run test:watch
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
