@@ -46,69 +46,85 @@ const getElementIcon = (type: string): React.ReactElement => {
   switch (type.toLowerCase()) {
     case 'green':
       return (
-        <div className="w-6 h-6 rounded-full bg-putting-green flex items-center justify-center">
-          <span className="text-white text-xs">G</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
+          <circle cx="12" cy="12" r="10" fill="#81c784" stroke="#2e7d32" strokeWidth="1.5" />
+          <circle cx="12" cy="12" r="2" fill="#fff" />
+        </svg>
       );
     case 'bunker':
     case 'bunkers':
       return (
-        <div className="w-6 h-6 rounded-full bg-sand-bunker flex items-center justify-center">
-          <span className="text-amber-800 text-xs">B</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
+          <path d="M4 18C4 16 6 14 8 14C11 14 10 18 13 18C16 18 18 16 20 16" stroke="#b98f52" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path d="M4 14C4 12 6 10 8 10C11 10 10 14 13 14C16 14 18 12 20 12" stroke="#b98f52" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <rect x="2" y="16" width="20" height="6" rx="1" fill="#fff9c4" />
+        </svg>
       );
     case 'water_hazard':
     case 'water':
       return (
-        <div className="w-6 h-6 rounded-full bg-water-hazard flex items-center justify-center">
-          <span className="text-white text-xs">W</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
+          <path d="M4 12C6 10 8 12 10 10C12 8 14 10 16 8C18 6 20 8 20 8V20H4V12Z" fill="#4fc3f7" />
+          <path d="M4 16C6 14 8 16 10 14C12 12 14 14 16 12C18 10 20 12 20 12" stroke="#0288d1" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        </svg>
       );
     case 'slope':
     case 'slopes':
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clipRule="evenodd" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="20" x2="21" y2="3" />
+          <line x1="21" y1="20" x2="12" y2="12" />
         </svg>
       );
     case 'break_marker':
     case 'break_markers':
     case 'break':
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 4v16" />
+          <path d="M4 12h10" />
+          <path d="M14 12l3 3-3 3" />
         </svg>
       );
     case 'fringe':
       return (
-        <div className="w-6 h-6 rounded-full bg-green-300 flex items-center justify-center">
-          <span className="text-green-800 text-xs">F</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
+          <circle cx="12" cy="12" r="10" fill="#a5d6a7" stroke="#2e7d32" strokeWidth="1.5" />
+          <path d="M6 12C8 8 12 8 12 12C12 16 16 16 18 12" stroke="#2e7d32" strokeWidth="1.5" fill="none" />
+        </svg>
       );
     case 'distance_markers':
     case 'distance':
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
         </svg>
       );
     case 'collar':
       return (
-        <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center">
-          <span className="text-white text-xs">C</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6">
+          <circle cx="12" cy="12" r="10" fill="#4caf50" stroke="#1b5e20" strokeWidth="1.5" />
+          <circle cx="12" cy="12" r="6" fill="#1b5e20" stroke="#4caf50" strokeWidth="1.5" />
+          <circle cx="12" cy="12" r="3" fill="#a5d6a7" />
+        </svg>
       );
     case 'tier':
     case 'ridge':
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="8" x2="21" y2="8" />
+          <line x1="3" y1="16" x2="21" y2="16" />
+          <path d="M8 4v16" />
+          <path d="M16 4v16" />
         </svg>
       );
     default:
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-primary" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
         </svg>
       );
   }
