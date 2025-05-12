@@ -20,7 +20,7 @@ interface Parameter {
 interface TestCase {
   name: string;
   code: string;
-  expected?: any;
+  expected?: unknown;
   expected_error?: boolean;
   hint: string;
 }

@@ -80,3 +80,4 @@ When continuing this project, remember:
 - Each "hole" is actually a programming challenge
 - The par value represents the estimated complexity/lines of code
 - The current focus is on browser-based TDD with interactive feedback
+- IMPORTANT: Always run `npm run build:summary` and `npm run build` before committing changes to ensure all YAML files are properly processed and TypeScript validation passes

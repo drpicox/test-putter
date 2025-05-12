@@ -57,8 +57,8 @@
   },
   {
     "id": "9",
-    "name": "Championship Finisher",
-    "description": "A true test of skill combining multiple challenges: elevation change, a severe break, and a narrow target zone.",
+    "name": "Merge Sorted Arrays",
+    "description": "Implement a function that merges two sorted arrays into a single sorted array. The merged array should also be sorted.",
     "difficulty": "championship",
     "par": 4
   }

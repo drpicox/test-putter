@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 interface TestCase {
   name: string;
   code: string;
-  expected?: any;
+  expected?: unknown;
   expected_error?: boolean;
   hint: string;
 }
@@ -14,8 +14,8 @@ interface TestResult {
   name: string;
   passed: boolean;
   error?: string;
-  actual?: any;
-  expected?: any;
+  actual?: unknown;
+  expected?: unknown;
   hint?: string;
 }
 
@@ -89,29 +89,29 @@ export default function TestRunner({ code, tests, onTestsComplete }: TestRunnerP
 
   // Function to safely execute a test
   const executeTest = (codeString: string, test: TestCase): TestResult => {
-    let userFunction;
-    
     try {
       // Create a function from the code
       // Using new Function is safer than eval but still has security implications
       // In a production app, consider using a sandboxed environment or Web Workers
-      userFunction = new Function('return ' + codeString)();
-      
+      new Function('return ' + codeString)();
+
       // For expected_error tests, we need to check if it throws
       if (test.expected_error) {
         let threwError = false;
         let errorMessage = '';
-        
+
         try {
           // Evaluate the test code with the user's function
           // This is potentially unsafe, but necessary for evaluating code
-          // eslint-disable-next-line no-eval
-          eval(test.code);
+          Function(`
+            ${codeString}
+            ${test.code};
+          `)();
         } catch (e) {
           threwError = true;
           errorMessage = e instanceof Error ? e.message : 'Unknown error';
         }
-        
+
         if (!threwError) {
           return {
             name: test.name,
@@ -122,7 +122,7 @@ export default function TestRunner({ code, tests, onTestsComplete }: TestRunnerP
             hint: test.hint
           };
         }
-        
+
         return {
           name: test.name,
           passed: true,
@@ -131,14 +131,18 @@ export default function TestRunner({ code, tests, onTestsComplete }: TestRunnerP
           hint: test.hint
         };
       }
-      
+
       // For regular tests, evaluate the result
-      // eslint-disable-next-line no-eval
-      const result = eval(test.code);
-      
+      // Using Function instead of eval for better safety
+      const resultFunction = Function(`
+        ${codeString}
+        return ${test.code};
+      `);
+      const result = resultFunction();
+
       // Check if result matches expected
       const passed = deepEqual(result, test.expected);
-      
+
       return {
         name: test.name,
         passed,
@@ -158,20 +162,23 @@ export default function TestRunner({ code, tests, onTestsComplete }: TestRunnerP
   };
 
   // Deep equality check function
-  const deepEqual = (a: any, b: any): boolean => {
+  const deepEqual = (a: unknown, b: unknown): boolean => {
     if (a === b) return true;
-    
+
     if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
       return a === b;
     }
-    
-    const keysA = Object.keys(a);
-    const keysB = Object.keys(b);
-    
+
+    const keysA = Object.keys(a as Record<string, unknown>);
+    const keysB = Object.keys(b as Record<string, unknown>);
+
     if (keysA.length !== keysB.length) return false;
-    
-    return keysA.every(key => 
-      keysB.includes(key) && deepEqual(a[key], b[key])
+
+    return keysA.every(key =>
+      keysB.includes(key) && deepEqual(
+        (a as Record<string, unknown>)[key],
+        (b as Record<string, unknown>)[key]
+      )
     );
   };
 
