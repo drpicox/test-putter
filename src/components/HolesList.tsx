@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hole, DifficultyLevel } from '../models/Hole';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface HolesListProps {
   holes: Hole[];
@@ -67,18 +68,19 @@ export const HolesList: React.FC<HolesListProps> = ({ holes }) => {
             <p className="text-sm mb-4 text-foreground line-clamp-2">{hole.description}</p>
 
             <div className="mt-auto pt-2 flex justify-between items-center">
-              <a
-                href={hole.getDataUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={`/holes/${hole.id}`}
                 className="text-xs text-primary hover:underline flex items-center"
               >
                 View Details
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
-              </a>
-              <button className="px-4 py-2 bg-primary text-white rounded-full text-sm hover:opacity-90 transition-opacity flex items-center">
+              </Link>
+              <Link
+                href={`/holes/${hole.id}`}
+                className="px-4 py-2 bg-primary text-white rounded-full text-sm hover:opacity-90 transition-opacity flex items-center"
+              >
                 <Image
                   src="/golf-ball.svg"
                   alt="Golf Ball"
@@ -87,7 +89,7 @@ export const HolesList: React.FC<HolesListProps> = ({ holes }) => {
                   className="invert mr-2"
                 />
                 Play Hole
-              </button>
+              </Link>
             </div>
           </div>
         ))}
