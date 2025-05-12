@@ -74,9 +74,14 @@ export default function HoleDetail({ holeId }: HoleDetailProps) {
     const fetchHoleData = async () => {
       try {
         setLoading(true);
-        
-        const response = await fetch(`/data/holes/hole-${holeId}.yaml`);
-        
+
+        // Get the base path from the window location to support GitHub Pages deployment
+        const basePath = typeof window !== 'undefined'
+          ? window.location.pathname.startsWith('/test-putter') ? '/test-putter' : ''
+          : '';
+
+        const response = await fetch(`${basePath}/data/holes/hole-${holeId}.yaml`);
+
         if (!response.ok) {
           throw new Error(`Failed to fetch hole data: ${response.status}`);
         }

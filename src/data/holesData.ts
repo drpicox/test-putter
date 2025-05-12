@@ -5,7 +5,12 @@ import holeSummaryData from '../../public/data/holes-summary.json';
 // In a browser environment, we'll fetch the summary from the public directory
 const fetchHoleSummary = async (): Promise<Hole[]> => {
   try {
-    const response = await fetch('/data/holes-summary.json');
+    // Get the base path for GitHub Pages deployment
+    const basePath = typeof window !== 'undefined'
+      ? window.location.pathname.startsWith('/test-putter') ? '/test-putter' : ''
+      : '';
+
+    const response = await fetch(`${basePath}/data/holes-summary.json`);
     if (!response.ok) {
       throw new Error('Failed to fetch holes summary');
     }

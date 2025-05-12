@@ -45,6 +45,11 @@ export class Hole {
    * Gets the complete hole data URL for this hole
    */
   getDataUrl(): string {
-    return `/data/holes/hole-${this.id}.yaml`;
+    // Get the base path for GitHub Pages deployment
+    const basePath = typeof window !== 'undefined'
+      ? window.location.pathname.startsWith('/test-putter') ? '/test-putter' : ''
+      : '';
+
+    return `${basePath}/data/holes/hole-${this.id}.yaml`;
   }
 }
