@@ -1,0 +1,16 @@
+id: "6"
+name: "The Long Putt"
+description: "Test your distance control with this extra long putting challenge. Requires both power and finesse."
+elements:
+  - type: "green"
+    description: "Extremely long green requiring a 30+ foot putt"
+  - type: "fringe"
+    description: "Standard fringe surrounding the green"
+  - type: "slope"
+    description: "Mostly flat with a subtle rise in the middle section"
+  - type: "distance_markers"
+    description: "Distance markers at 10, 20, and 30 feet"
+  - type: "speed_transition"
+    description: "Green speed changes slightly in the final third"
+difficulty: "intermediate"
+par: 3

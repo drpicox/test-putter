@@ -1,0 +1,16 @@
+id: "8"
+name: "The Island Green"
+description: "An intimidating island green surrounded by water. Mental focus is key to conquering this challenging hole."
+elements:
+  - type: "green"
+    description: "Island green completely surrounded by water"
+  - type: "water_hazard"
+    description: "Water hazard encircling the entire green"
+  - type: "fringe"
+    description: "Narrow fringe providing limited safe landing area"
+  - type: "slope"
+    description: "Subtle crown in the center pushing balls towards the edges"
+  - type: "visual_intimidation"
+    description: "Psychological challenge due to water surroundings"
+difficulty: "expert"
+par: 3

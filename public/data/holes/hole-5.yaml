@@ -1,0 +1,16 @@
+id: "5"
+name: "Double Break"
+description: "An expert-level hole featuring a double breaking putt that challenges even the most skilled golfers."
+elements:
+  - type: "green"
+    description: "Complex green with multiple breaks and undulations"
+  - type: "fringe"
+    description: "Slightly higher-cut fringe creating a clear boundary"
+  - type: "break_markers"
+    description: "Multiple break points requiring careful reading"
+  - type: "slopes"
+    description: "Initial right-to-left break followed by left-to-right break"
+  - type: "grain"
+    description: "Grain running against the second break adding complexity"
+difficulty: "expert"
+par: 3

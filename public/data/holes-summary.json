@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "name": "Gentle Slope",
+    "description": "A straightforward hole with a gentle left-to-right slope. Perfect for beginners to practice reading breaks.",
+    "difficulty": "beginner",
+    "par": 2
+  },
+  {
+    "id": "2",
+    "name": "Dogleg Right",
+    "description": "A challenging dogleg right that requires precise aim and distance control. The green has multiple tiers.",
+    "difficulty": "intermediate",
+    "par": 3
+  },
+  {
+    "id": "3",
+    "name": "Water Hazard Challenge",
+    "description": "A nerve-testing hole with water hazard along the right side. The green has subtle undulations that are difficult to read.",
+    "difficulty": "advanced",
+    "par": 3
+  },
+  {
+    "id": "4",
+    "name": "Bunker Alley",
+    "description": "A strategic hole with bunkers on both sides creating a narrow alley to the green. Precision is key.",
+    "difficulty": "intermediate",
+    "par": 3
+  },
+  {
+    "id": "5",
+    "name": "Double Break",
+    "description": "An expert-level hole featuring a double breaking putt that challenges even the most skilled golfers.",
+    "difficulty": "expert",
+    "par": 3
+  },
+  {
+    "id": "6",
+    "name": "The Long Putt",
+    "description": "Test your distance control with this extra long putting challenge. Requires both power and finesse.",
+    "difficulty": "intermediate",
+    "par": 3
+  },
+  {
+    "id": "7",
+    "name": "Challenging Elevation",
+    "description": "A severe uphill putt that tests your ability to judge speed and power on an elevated green.",
+    "difficulty": "advanced",
+    "par": 3
+  },
+  {
+    "id": "8",
+    "name": "The Island Green",
+    "description": "An intimidating island green surrounded by water. Mental focus is key to conquering this challenging hole.",
+    "difficulty": "expert",
+    "par": 3
+  },
+  {
+    "id": "9",
+    "name": "Championship Finisher",
+    "description": "A true test of skill combining multiple challenges: elevation change, a severe break, and a narrow target zone.",
+    "difficulty": "championship",
+    "par": 4
+  }
+]

@@ -1,0 +1,16 @@
+id: "2"
+name: "Dogleg Right"
+description: "A challenging dogleg right that requires precise aim and distance control. The green has multiple tiers."
+elements:
+  - type: "green"
+    description: "Multi-tiered green with a prominent ridge dividing upper and lower sections"
+  - type: "fringe"
+    description: "Slightly longer fringe that will slow the ball considerably"
+  - type: "bunker"
+    description: "Small bunker guarding the right side approach"
+  - type: "slope"
+    description: "Back-to-front slope of 3.5% on the upper tier"
+  - type: "break_marker"
+    description: "Double break with complex read required"
+difficulty: "intermediate"
+par: 3

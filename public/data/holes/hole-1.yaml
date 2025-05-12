@@ -1,0 +1,14 @@
+id: "1"
+name: "Gentle Slope"
+description: "A straightforward hole with a gentle left-to-right slope. Perfect for beginners to practice reading breaks."
+elements:
+  - type: "green"
+    description: "Smooth putting surface with a 2% slope from left to right"
+  - type: "fringe"
+    description: "Well-maintained fringe with consistent speed"
+  - type: "break_marker"
+    description: "Subtle break point at 4 feet from the hole"
+  - type: "distance_markers"
+    description: "Distance markers at 3, 6, and 9 feet"
+difficulty: "beginner"
+par: 2

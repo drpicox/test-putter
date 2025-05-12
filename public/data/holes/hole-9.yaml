@@ -1,0 +1,18 @@
+id: "9"
+name: "Championship Finisher"
+description: "A true test of skill combining multiple challenges: elevation change, a severe break, and a narrow target zone."
+elements:
+  - type: "green"
+    description: "Championship-quality green with complex undulations"
+  - type: "fringe"
+    description: "Meticulously maintained fringe with consistent speed"
+  - type: "bunker"
+    description: "Deep bunker guarding the left side"
+  - type: "tier"
+    description: "Two-tiered green with a significant drop"
+  - type: "break"
+    description: "Dramatic right-to-left break at the hole"
+  - type: "speed"
+    description: "Fast green stimping at 12 on the stimpmeter"
+difficulty: "championship"
+par: 4

@@ -1,0 +1,16 @@
+id: "7"
+name: "Challenging Elevation"
+description: "A severe uphill putt that tests your ability to judge speed and power on an elevated green."
+elements:
+  - type: "green"
+    description: "Elevated green with a significant uphill approach"
+  - type: "fringe"
+    description: "Closely mown fringe that offers little resistance"
+  - type: "slope"
+    description: "Steep 5% uphill grade throughout the putt"
+  - type: "ridge"
+    description: "Subtle ridge near the hole creating a final break"
+  - type: "tier"
+    description: "Green sits on a higher tier requiring extra power"
+difficulty: "advanced"
+par: 3

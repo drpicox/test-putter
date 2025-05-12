@@ -1,0 +1,16 @@
+id: "3"
+name: "Water Hazard Challenge"
+description: "A nerve-testing hole with water hazard along the right side. The green has subtle undulations that are difficult to read."
+elements:
+  - type: "green"
+    description: "Undulating green with subtle breaks throughout"
+  - type: "water_hazard"
+    description: "Water hazard running along the entire right side"
+  - type: "fringe"
+    description: "Tightly mown fringe that plays fast"
+  - type: "collar"
+    description: "Rough collar that will slow approaching putts"
+  - type: "slope"
+    description: "Slight back-to-front slope with a false front"
+difficulty: "advanced"
+par: 3

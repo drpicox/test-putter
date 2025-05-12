@@ -1,0 +1,16 @@
+id: "4"
+name: "Bunker Alley"
+description: "A strategic hole with bunkers on both sides creating a narrow alley to the green. Precision is key."
+elements:
+  - type: "green"
+    description: "Relatively flat green with a slight crown in the center"
+  - type: "bunkers"
+    description: "Two deep bunkers flanking both sides of the approach"
+  - type: "fringe"
+    description: "Standard fringe with consistent speed"
+  - type: "slope"
+    description: "Subtle right-to-left slope of 1.8%"
+  - type: "distance_markers"
+    description: "Distance markers at 5, 10, and 15 feet"
+difficulty: "intermediate"
+par: 3
