@@ -26,6 +26,9 @@ body {
   background: var(--golf-green-light);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .golf-bg {

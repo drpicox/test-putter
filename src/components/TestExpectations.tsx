@@ -54,11 +54,11 @@ const TestExpectations: React.FC<TestExpectationsProps> = ({ code, testCases }) 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Test Expectations</h3>
+        <h3 className="text-lg font-semibold text-green-800">Target Score</h3>
         <div className="flex items-center gap-2">
           <span className={`h-3 w-3 rounded-full ${allTestsPassing ? 'bg-green-500' : 'bg-red-500'}`}></span>
           <span className={`text-sm font-medium ${allTestsPassing ? 'text-green-600' : 'text-red-600'}`}>
-            {allTestsPassing ? 'All tests passing' : 'Tests failing'}
+            {allTestsPassing ? 'Target reached!' : 'Not on target yet'}
           </span>
         </div>
       </div>
@@ -69,10 +69,11 @@ const TestExpectations: React.FC<TestExpectationsProps> = ({ code, testCases }) 
             key={index}
             className={`p-3 rounded-md font-mono text-sm ${
               results[test.expression] 
-                ? 'bg-green-100 text-green-800 border border-green-200' 
-                : 'bg-red-100 text-red-800 border border-red-200'
+                ? 'bg-green-100/80 text-green-800 border border-green-200' 
+                : 'bg-red-100/80 text-red-800 border border-red-200'
             }`}
           >
+            <span className="mr-2 text-gray-500">{index + 1}:</span>
             <span>expect(</span>
             <span className="font-semibold">{test.expression}</span>
             <span>).toBe(</span>
@@ -81,6 +82,9 @@ const TestExpectations: React.FC<TestExpectationsProps> = ({ code, testCases }) 
               : test.expected
             }</span>
             <span>)</span>
+            <span className="ml-2">
+              {results[test.expression] ? '✅' : '❌'}
+            </span>
           </div>
         ))}
       </div>

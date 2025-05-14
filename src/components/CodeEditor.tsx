@@ -33,9 +33,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, onChange, onKeystroke }) 
   };
 
   return (
-    <div className="h-[400px] w-full">
+    <div className="h-full w-full">
       <Editor
         height="100%"
+        width="100%"
         defaultLanguage="javascript"
         defaultValue={code}
         onChange={(value) => onChange(value || '')}
