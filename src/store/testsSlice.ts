@@ -3,7 +3,7 @@ import { RootState } from './store';
 
 export interface TestCase {
   expression: string;
-  expected: any;
+  expected: number | string | boolean;
 }
 
 interface TestResults {

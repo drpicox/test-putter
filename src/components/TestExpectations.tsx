@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { 
-  TestCase, 
   selectTestCases, 
   selectTestResults, 
   selectVisibleTests, 
@@ -63,7 +62,7 @@ const TestExpectations: React.FC = () => {
         });
         
         dispatch(setTestResults(newResults));
-      } catch (error) {
+      } catch {
         // If there are errors in the code, mark all tests as failing
         const failedResults: Record<string, boolean> = {};
         testCases.forEach((test, index) => {

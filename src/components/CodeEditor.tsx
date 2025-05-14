@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Editor from '@monaco-editor/react';
+import * as Monaco from 'monaco-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCode, updateCode } from '@/store/codeSlice';
 import { incrementKeystrokes } from '@/store/keystrokesSlice';
@@ -10,13 +11,13 @@ import { incrementKeystrokes } from '@/store/keystrokesSlice';
 const CodeEditor: React.FC = () => {
   const dispatch = useDispatch();
   const code = useSelector(selectCode);
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
 
-  const handleEditorDidMount = (editor: any) => {
+  const handleEditorDidMount = (editor: Monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
     
     // Add keydown event listener to track keystrokes
-    editor.onKeyDown((e: any) => {
+    editor.onKeyDown((e: Monaco.IKeyboardEvent) => {
       // Only count actual keystrokes (not navigation, etc)
       const nonCountingKeys = [
         'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
