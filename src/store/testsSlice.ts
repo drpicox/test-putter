@@ -43,22 +43,26 @@ export const testsSlice = createSlice({
     setTestResults: (state, action: PayloadAction<TestResults>) => {
       state.testResults = action.payload;
       
-      // Auto-update visible tests based on passing tests
-      const reversedTestOrder = [...state.testCases].reverse();
-      let passedCount = 0;
+      // Check if all current visible tests are passing
+      let allCurrentTestsPassing = true;
+      const visibleCases = state.testCases.slice(state.testCases.length - state.visibleTests);
       
-      for (let i = 0; i < reversedTestOrder.length; i++) {
-        const test = reversedTestOrder[i];
-        if (state.testResults[test.expression]) {
-          passedCount++;
-        } else {
+      for (const test of visibleCases) {
+        if (!state.testResults[test.expression]) {
+          allCurrentTestsPassing = false;
           break;
         }
       }
       
-      // Reveal one more test if all current tests are passing
-      if (passedCount >= state.visibleTests && state.visibleTests < state.testCases.length) {
-        state.visibleTests = Math.min(state.visibleTests + 1, state.testCases.length);
+      // If all visible tests are passing, reveal the next test
+      if (allCurrentTestsPassing && state.visibleTests < state.testCases.length) {
+        state.visibleTests += 1;
+      }
+      
+      // Ensure we reveal all tests if they're all passing
+      if (Object.values(state.testResults).length === state.testCases.length && 
+          Object.values(state.testResults).every(r => r === true)) {
+        state.visibleTests = state.testCases.length;
       }
     },
     increaseVisibleTests: (state) => {
@@ -100,10 +104,14 @@ export const selectVisibleTestCases = createSelector(
 );
 
 export const selectAllTestsPassing = createSelector(
-  [selectTestResults],
-  (testResults) => {
-    return Object.values(testResults).length > 0 && 
-           Object.values(testResults).every(result => result === true);
+  [selectTestResults, selectTestCases],
+  (testResults, testCases) => {
+    // Make sure we have results for all tests
+    const allTestsHaveResults = Object.keys(testResults).length === testCases.length;
+    // Make sure all test results are passing
+    const allResultsPass = Object.values(testResults).every(result => result === true);
+    
+    return allTestsHaveResults && allResultsPass;
   }
 );
 
