@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Golf Flag</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <!-- Pole -->
+        <rect fill="#8B4513" x="97" y="20" width="6" height="160" rx="2"></rect>
+        
+        <!-- Flag -->
+        <path d="M100,20 L100,70 L40,45 L100,20 Z" fill="#E74C3C"></path>
+        
+        <!-- Hole -->
+        <circle fill="#000000" cx="100" cy="180" r="12"></circle>
+        <circle fill="#333333" cx="100" cy="180" r="8"></circle>
+        
+        <!-- Ball approaching hole -->
+        <circle fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1" cx="130" cy="160" r="6"></circle>
+        
+        <!-- Grass around hole -->
+        <path d="M80,180 C85,170 95,168 100,168 C105,168 115,170 120,180" stroke="#447A33" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M70,185 C80,175 95,173 100,173 C105,173 120,175 130,185" stroke="#447A33" stroke-width="2" stroke-linecap="round"></path>
+    </g>
+</svg>

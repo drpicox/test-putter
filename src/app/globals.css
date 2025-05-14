@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --golf-green-light: #7BB76B;
+  --golf-green-dark: #447A33;
+  --golf-green-accent: #8FD07F;
 }
 
 @theme inline {
@@ -20,7 +23,52 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--golf-green-light);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.golf-bg {
+  background: linear-gradient(135deg, var(--golf-green-light) 0%, var(--golf-green-dark) 100%);
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.golf-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, var(--golf-green-accent) 5%, transparent 5.5%),
+    radial-gradient(circle at 30% 70%, var(--golf-green-accent) 4%, transparent 4.5%),
+    radial-gradient(circle at 50% 40%, var(--golf-green-accent) 6%, transparent 6.5%),
+    radial-gradient(circle at 70% 80%, var(--golf-green-accent) 5%, transparent 5.5%),
+    radial-gradient(circle at 90% 30%, var(--golf-green-accent) 4%, transparent 4.5%);
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.golf-content {
+  position: relative;
+  z-index: 1;
+}
+
+.start-button {
+  background-color: #F9CA24;
+  color: #333333;
+  font-weight: bold;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: #F0B905;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
