@@ -2,14 +2,14 @@
 
 import React, { useRef } from 'react';
 import Editor from '@monaco-editor/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCode, updateCode } from '@/store/codeSlice';
+import { incrementKeystrokes } from '@/store/keystrokesSlice';
 
-interface CodeEditorProps {
-  code: string;
-  onChange: (value: string) => void;
-  onKeystroke: () => void;
-}
-
-const CodeEditor: React.FC<CodeEditorProps> = ({ code, onChange, onKeystroke }) => {
+// This component can now be used without props
+const CodeEditor: React.FC = () => {
+  const dispatch = useDispatch();
+  const code = useSelector(selectCode);
   const editorRef = useRef<any>(null);
 
   const handleEditorDidMount = (editor: any) => {
@@ -27,9 +27,13 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, onChange, onKeystroke }) 
       ];
       
       if (!nonCountingKeys.includes(e.code)) {
-        onKeystroke();
+        dispatch(incrementKeystrokes());
       }
     });
+  };
+
+  const handleCodeChange = (value: string | undefined) => {
+    dispatch(updateCode(value || ''));
   };
 
   return (
@@ -38,8 +42,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, onChange, onKeystroke }) 
         height="100%"
         width="100%"
         defaultLanguage="javascript"
-        defaultValue={code}
-        onChange={(value) => onChange(value || '')}
+        value={code} // Use value instead of defaultValue to make it controlled
+        onChange={handleCodeChange}
         onMount={handleEditorDidMount}
         options={{
           minimap: { enabled: false },

@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectKeystrokeCount } from '@/store/keystrokesSlice';
 
-interface KeystrokesCounterProps {
-  count: number;
-}
-
-const KeystrokesCounter: React.FC<KeystrokesCounterProps> = ({ count }) => {
+// No props needed anymore
+const KeystrokesCounter: React.FC = () => {
+  const count = useSelector(selectKeystrokeCount);
+  
   return (
     <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-4 flex items-center justify-between border border-green-700/20">
       <div className="flex items-center">

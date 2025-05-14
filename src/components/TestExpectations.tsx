@@ -1,20 +1,36 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+  TestCase, 
+  selectTestCases, 
+  selectTestResults, 
+  selectVisibleTests, 
+  selectVisibleTestCases, 
+  selectAllTestsPassing,
+  setTestResults 
+} from '@/store/testsSlice';
+import { selectCode } from '@/store/codeSlice';
+import { 
+  testPassed, 
+  testFailed,
+  selectTestKeystrokesInfo
+} from '@/store/keystrokesSlice';
 
-interface TestCase {
-  expression: string;
-  expected: any;
-}
+const TestExpectations: React.FC = () => {
+  const dispatch = useDispatch();
+  const code = useSelector(selectCode);
+  const testCases = useSelector(selectTestCases);
+  const results = useSelector(selectTestResults);
+  const visibleTests = useSelector(selectVisibleTests);
+  const visibleTestCases = useSelector(selectVisibleTestCases);
+  const allTestsPassing = useSelector(selectAllTestsPassing);
+  const testKeystrokesInfo = useSelector(selectTestKeystrokesInfo);
 
-interface TestExpectationsProps {
-  code: string;
-  testCases: TestCase[];
-}
-
-const TestExpectations: React.FC<TestExpectationsProps> = ({ code, testCases }) => {
-  const [results, setResults] = useState<Record<string, boolean>>({});
-  const [visibleTests, setVisibleTests] = useState<number>(1); // Start with 1 visible test
+  // Count how many tests have been unlocked
+  const totalTests = testCases.length;
+  const unlockedTests = visibleTests;
 
   useEffect(() => {
     const evalCode = () => {
@@ -31,55 +47,33 @@ const TestExpectations: React.FC<TestExpectationsProps> = ({ code, testCases }) 
         // Compare results with expected values
         const newResults: Record<string, boolean> = {};
         
-        testCases.forEach(test => {
+        testCases.forEach((test, index) => {
           const actualValue = evalContext[test.expression];
-          newResults[test.expression] = actualValue === test.expected;
+          const isPassing = actualValue === test.expected;
+          newResults[test.expression] = isPassing;
+          
+          // Dispatch test passed/failed actions to track keystroke counts
+          if (isPassing) {
+            dispatch(testPassed({ index, expression: test.expression }));
+          } else {
+            dispatch(testFailed({ index, expression: test.expression }));
+          }
         });
         
-        setResults(newResults);
+        dispatch(setTestResults(newResults));
       } catch (error) {
         // If there are errors in the code, mark all tests as failing
         const failedResults: Record<string, boolean> = {};
-        testCases.forEach(test => {
+        testCases.forEach((test, index) => {
           failedResults[test.expression] = false;
+          dispatch(testFailed({ index, expression: test.expression }));
         });
-        setResults(failedResults);
+        dispatch(setTestResults(failedResults));
       }
     };
 
     evalCode();
-  }, [code, testCases]);
-
-  // Reveal more tests when previous tests pass
-  useEffect(() => {
-    // Reverse order (from end of array, which has simpler cases)
-    const reversedTestOrder = [...testCases].reverse();
-    
-    // Check how many consecutive tests from the start are passing
-    let passedCount = 0;
-    for (let i = 0; i < reversedTestOrder.length; i++) {
-      const test = reversedTestOrder[i];
-      if (results[test.expression]) {
-        passedCount++;
-      } else {
-        break;
-      }
-    }
-    
-    // Reveal one more test if all current tests are passing
-    if (passedCount >= visibleTests && visibleTests < testCases.length) {
-      setVisibleTests(prevVisible => Math.min(prevVisible + 1, testCases.length));
-    }
-  }, [results, testCases, visibleTests]);
-
-  const allTestsPassing = Object.values(results).every(result => result === true);
-
-  // Get the visible subset of tests
-  const visibleTestCases = [...testCases].slice(testCases.length - visibleTests);
-  
-  // Count how many tests have been unlocked
-  const unlockedTests = visibleTests;
-  const totalTests = testCases.length;
+  }, [code, testCases, dispatch]);
 
   return (
     <div className="space-y-4">
@@ -99,29 +93,42 @@ const TestExpectations: React.FC<TestExpectationsProps> = ({ code, testCases }) 
       </div>
       
       <div className="space-y-2">
-        {visibleTestCases.map((test, index) => {
+        {visibleTestCases.map((test) => {
           const originalIndex = testCases.findIndex(t => t.expression === test.expression);
+          const testInfo = testKeystrokesInfo[test.expression];
+          const isPassing = results[test.expression];
+          
           return (
             <div 
               key={originalIndex}
               className={`p-3 rounded-md font-mono text-sm ${
-                results[test.expression] 
+                isPassing 
                   ? 'bg-green-100/80 text-green-800 border border-green-200' 
                   : 'bg-red-100/80 text-red-800 border border-red-200'
               }`}
             >
-              <span className="mr-2 text-gray-500">{originalIndex + 1}:</span>
-              <span>expect(</span>
-              <span className="font-semibold">{test.expression}</span>
-              <span>).toBe(</span>
-              <span className="font-semibold">{typeof test.expected === 'string' 
-                ? `"${test.expected}"` 
-                : test.expected
-              }</span>
-              <span>)</span>
-              <span className="ml-2">
-                {results[test.expression] ? '✅' : '❌'}
-              </span>
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="mr-2 text-gray-500">{originalIndex + 1}:</span>
+                  <span>expect(</span>
+                  <span className="font-semibold">{test.expression}</span>
+                  <span>).toBe(</span>
+                  <span className="font-semibold">{typeof test.expected === 'string' 
+                    ? `"${test.expected}"` 
+                    : test.expected
+                  }</span>
+                  <span>)</span>
+                  <span className="ml-2">
+                    {isPassing ? '✅' : '❌'}
+                  </span>
+                </div>
+                
+                {testInfo?.isPassed && (
+                  <div className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200">
+                    Passed at: <span className="font-semibold">{testInfo.keystrokesWhenPassed}</span> strokes
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
