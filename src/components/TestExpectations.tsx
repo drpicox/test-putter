@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { 
   TestCase, 
   selectTestCases, 
@@ -17,9 +18,9 @@ import {
   testFailed,
   selectTestKeystrokesInfo
 } from '@/store/keystrokesSlice';
-import Statistics from './Statistics';
 
 const TestExpectations: React.FC = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const code = useSelector(selectCode);
   const testCases = useSelector(selectTestCases);
@@ -28,9 +29,6 @@ const TestExpectations: React.FC = () => {
   const visibleTestCases = useSelector(selectVisibleTestCases);
   const allTestsPassing = useSelector(selectAllTestsPassing);
   const testKeystrokesInfo = useSelector(selectTestKeystrokesInfo);
-  
-  // State for showing/hiding statistics modal
-  const [showStatistics, setShowStatistics] = useState(false);
 
   // Count how many tests have been unlocked
   const totalTests = testCases.length;
@@ -81,9 +79,6 @@ const TestExpectations: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      {/* Show statistics modal if enabled and all tests are passing */}
-      {showStatistics && <Statistics onClose={() => setShowStatistics(false)} />}
-      
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-green-800">Target Score</h3>
         <div className="flex items-center gap-2">
@@ -100,7 +95,7 @@ const TestExpectations: React.FC = () => {
           {/* Show statistics button when all tests pass */}
           {allTestsPassing && (
             <button
-              onClick={() => setShowStatistics(true)}
+              onClick={() => router.push('/stats')}
               className="ml-2 px-3 py-1 bg-green-600 text-white text-xs rounded-full hover:bg-green-700 transition-colors"
             >
               View Stats
