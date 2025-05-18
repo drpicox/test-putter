@@ -3,13 +3,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { 
-  selectTestCases, 
-  selectTestResults, 
-  selectVisibleTests, 
-  selectVisibleTestCases, 
+import {
+  selectTestCases,
+  selectTestResults,
+  selectVisibleTests,
+  selectVisibleTestCases,
   selectAllTestsPassing,
-  setTestResults 
+  setTestResults, selectVisibleTestResults
 } from '@/features/testing/slice';
 import { selectCode } from '@/features/editor/slice';
 import { 
@@ -26,7 +26,7 @@ const TestExpectations: React.FC = () => {
   const testCases = useSelector(selectTestCases);
   const results = useSelector(selectTestResults);
   const visibleTests = useSelector(selectVisibleTests);
-  const visibleTestCases = useSelector(selectVisibleTestCases);
+  const visibleTestResults = useSelector(selectVisibleTestResults);
   const allTestsPassing = useSelector(selectAllTestsPassing);
   const testKeystrokesInfo = useSelector(selectTestKeystrokesInfo);
 
@@ -40,14 +40,14 @@ const TestExpectations: React.FC = () => {
       
       // Update test results
       dispatch(setTestResults(newResults));
-      
-      // Update metrics for each test
-      testCases.forEach((test, index) => {
-        if (newResults[test.expression]) {
-          dispatch(testPassed({ index, expression: test.expression }));
-        } else {
-          dispatch(testFailed({ index, expression: test.expression }));
-        }
+
+      // Get the first consecutive passing results
+      const firstFailingIndex = newResults.findIndex(result => !result.passes);
+      const passingResults = firstFailingIndex !== -1 ? newResults.slice(0, firstFailingIndex) : newResults;
+
+            // Update metrics for each test
+      passingResults.forEach((result, index) => {
+          dispatch(testPassed({ index, expression: result.expression }));
       });
     };
 
@@ -82,14 +82,13 @@ const TestExpectations: React.FC = () => {
       </div>
       
       <div className="space-y-2">
-        {visibleTestCases.map((test) => {
-          const originalIndex = testCases.findIndex(t => t.expression === test.expression);
+        {visibleTestResults.map((test, index) => {
           const testInfo = testKeystrokesInfo[test.expression];
-          const isPassing = results[test.expression];
+          const isPassing = test.passes;
           
           return (
             <div 
-              key={originalIndex}
+              key={index}
               className={`p-3 rounded-md font-mono text-sm ${
                 isPassing 
                   ? 'bg-green-100/80 text-green-800 border border-green-200' 
@@ -98,7 +97,7 @@ const TestExpectations: React.FC = () => {
             >
               <div className="flex justify-between items-center">
                 <div>
-                  <span className="mr-2 text-gray-500">{originalIndex + 1}:</span>
+                  <span className="mr-2 text-gray-500">{index + 1}:</span>
                   <span>expect(</span>
                   <span className="font-semibold">{test.expression}</span>
                   <span>).toBe(</span>
@@ -120,7 +119,7 @@ const TestExpectations: React.FC = () => {
               </div>
             </div>
           );
-        })}
+        }).reverse()}
         
         {visibleTests < totalTests && (
           <div className="p-3 rounded-md font-mono text-sm bg-gray-100/80 text-gray-500 border border-gray-200 flex items-center">

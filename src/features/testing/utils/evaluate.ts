@@ -1,4 +1,4 @@
-import { TestCase } from '../slice';
+import {TestCase, TestResult} from '../slice';
 
 /**
  * Safely evaluates code against test cases
@@ -8,7 +8,7 @@ import { TestCase } from '../slice';
  * @returns Object with test results
  */
 export function evaluateCode(code: string, testCases: TestCase[]): { 
-  results: Record<string, boolean>,
+  results: TestResult[],
   error: boolean
 } {
   try {
@@ -20,24 +20,41 @@ export function evaluateCode(code: string, testCases: TestCase[]): {
         ${testCases.map(test => `'${test.expression}': ${test.expression}`).join(',')}
       };
     `)();
-    
+
     // Compare results with expected values
-    const results: Record<string, boolean> = {};
-    
-    testCases.forEach((test) => {
-      const actualValue = evalContext[test.expression];
-      const isPassing = actualValue === test.expected;
-      results[test.expression] = isPassing;
+    const results: TestResult[] = testCases.map(test => {
+      try {
+        const actualValue = evalContext[test.expression];
+        const isPassing = actualValue === test.expected;
+        return {
+          expression: test.expression,
+          passes: isPassing,
+          expected: test.expected,
+          actual: actualValue
+        };
+      } catch (error: unknown) {
+        return {
+          expression: test.expression,
+          passes: false,
+          expected: test.expected,
+          // @ts-expect-error error should be Error
+          actual: `// Error: ${error.message}`
+        };
+      }
     });
-    
     return { results, error: false };
-  } catch {
-    // If there are errors in the code, mark all tests as failing
-    const failedResults: Record<string, boolean> = {};
-    testCases.forEach((test) => {
-      failedResults[test.expression] = false;
-    });
-    
-    return { results: failedResults, error: true };
+  }catch (error: unknown) {
+    return {
+      results: testCases.map(test => {
+        return {
+          expression: test.expression,
+          passes: false,
+          expected: test.expected,
+          // @ts-expect-error error should be Error
+          actual: `// Error: ${error.message}`
+        };
+      }),
+      error: true
+    }
   }
 }

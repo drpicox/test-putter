@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(git add:*)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }

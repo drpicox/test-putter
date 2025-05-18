@@ -3,14 +3,14 @@
 import React, { useRef } from 'react';
 import Editor from '@monaco-editor/react';
 import * as Monaco from 'monaco-editor';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectCode, updateCode } from '@/features/editor/slice';
 import { incrementKeystrokes } from '@/features/metrics/slice';
+import {useAppDispatch, useAppSelector} from '@/store/hooks';
 
 // This component can now be used without props
 const CodeEditor: React.FC = () => {
-  const dispatch = useDispatch();
-  const code = useSelector(selectCode);
+  const dispatch = useAppDispatch();
+  const code = useAppSelector(selectCode);
   const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
 
   const handleEditorDidMount = (editor: Monaco.editor.IStandaloneCodeEditor) => {
