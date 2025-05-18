@@ -1,15 +1,19 @@
 'use client';
 
 import React from 'react';
-import { useSelector } from 'react-redux';
 import Link from 'next/link';
-import { selectKeystrokeCount, selectKeystrokesPerTest } from '@/store/keystrokesSlice';
-import { selectTestCases } from '@/store/testsSlice';
+import { useSelector } from 'react-redux';
+import { selectKeystrokeCount, selectKeystrokesPerTest } from '@/features/metrics/slice';
+import { selectTestCases } from '@/features/testing/slice';
+import { selectCurrentChallengeId } from '@/features/editor/slice';
+import { getChallengeById } from '@/features/challenges';
 
 export default function StatsPage() {
   const totalKeystrokes = useSelector(selectKeystrokeCount);
   const keystrokesPerTest = useSelector(selectKeystrokesPerTest);
   const testCases = useSelector(selectTestCases);
+  const currentChallengeId = useSelector(selectCurrentChallengeId);
+  const currentChallenge = getChallengeById(currentChallengeId);
   
   // Calculate the incremental keystrokes needed for each test
   const incrementalKeystrokes = keystrokesPerTest.map((test, index) => {
@@ -43,7 +47,13 @@ export default function StatsPage() {
 
       <main className="golf-content flex-1 container mx-auto px-4 py-8">
         <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-6 border border-green-700/20">
-          <h2 className="text-2xl font-bold text-green-800 mb-6">Your Performance Statistics</h2>
+          <h2 className="text-2xl font-bold text-green-800 mb-2">
+            Your Performance Statistics
+          </h2>
+          
+          <p className="text-green-700 mb-6">
+            Challenge: {currentChallenge?.name || 'Unknown'}
+          </p>
 
           {/* Total keystrokes summary */}
           <div className="mb-8">
@@ -101,8 +111,6 @@ export default function StatsPage() {
               </tbody>
             </table>
           </div>
-
-          {/* Performance graph or visualization could be added here */}
           
           {/* Call to action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

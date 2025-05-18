@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './counterSlice';
-import keystrokesReducer from './keystrokesSlice';
-import codeReducer from './codeSlice';
-import testsReducer from './testsSlice';
+
+// Import reducers from features
+import { editorReducer } from '@/features/editor';
+import { testingReducer } from '@/features/testing';
+import { metricsReducer } from '@/features/metrics';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer, // Keep the sample counter for reference
-    keystrokes: keystrokesReducer,
-    code: codeReducer,
-    tests: testsReducer,
+    code: editorReducer,
+    tests: testingReducer,
+    keystrokes: metricsReducer,
   },
 });
 

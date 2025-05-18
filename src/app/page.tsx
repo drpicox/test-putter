@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { challenges } from "@/features/challenges";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
               Test Putter
             </h1>
             
-            <div className="mb-6 relative" style={{ height: "50vh" }}>
+            <div className="mb-6 relative" style={{ height: "40vh" }}>
               <Image
                 src="/golf-flag.svg"
                 alt="Golf Hole Flag"
@@ -26,11 +27,36 @@ export default function Home() {
               Pass the test with the minimum keystrokes
             </p>
             
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 w-full max-w-lg">
+              {challenges.map(challenge => (
+                <Link 
+                  key={challenge.id}
+                  href={`/start?challenge=${challenge.id}`}
+                  className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-6 border border-green-700/20 hover:bg-white transition-colors"
+                >
+                  <h2 className="text-xl font-semibold text-green-800 mb-2">
+                    {challenge.name}
+                  </h2>
+                  <p className="text-green-700 text-sm mb-4">
+                    {challenge.description}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-green-600">
+                      {challenge.tests.length} holes
+                    </span>
+                    <span className="text-green-700 text-sm font-medium">
+                      Play now →
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            
             <Link 
               href="/start" 
               className="start-button"
             >
-              Start!
+              Start with Factorial
             </Link>
           </div>
         </main>
