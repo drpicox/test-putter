@@ -7,17 +7,15 @@ import { TestExpectations } from '@/features/testing';
 import { useChallenge } from '@/features/challenges/hooks';
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { challenges } from '@/features/challenges';
 
 export default function ChallengeClient() {
   const params = useParams();
   const { currentChallenge, switchChallenge } = useChallenge();
   
-  // Get challenge ID from slug
-  const slug = Array.isArray(params.slug) ? params.slug : [];
-  const challengeId = slug[0] || 'factorial';
+  // Get challenge ID from params
+  const challengeId = params.id as string;
   
-  // Set the challenge based on the slug
+  // Set the challenge based on the ID
   useEffect(() => {
     if (challengeId && challengeId !== currentChallenge?.id) {
       switchChallenge(challengeId);
