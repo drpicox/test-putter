@@ -42,11 +42,6 @@ export default function ChallengeClient() {
       <main className="golf-content flex-1 container mx-auto px-4 py-8 flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <KeystrokesCounter />
-          
-          <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-4 border border-green-700/20">
-            <h2 className="text-xl font-semibold text-green-800 mb-2">{currentChallenge?.name}</h2>
-            <p className="text-green-800">{currentChallenge?.description}</p>
-          </div>
         </div>
         
         <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md overflow-hidden border border-green-700/20" style={{ height: "60vh" }}>
