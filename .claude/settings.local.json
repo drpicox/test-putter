@@ -6,7 +6,8 @@
       "Bash(npx eslint:*)",
       "Bash(mkdir:*)",
       "Bash(find:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npm run typecheck:*)"
     ],
     "deny": []
   }

@@ -5,16 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import {
   selectTestCases,
-  selectTestResults,
   selectVisibleTests,
-  selectVisibleTestCases,
   selectAllTestsPassing,
-  setTestResults, selectVisibleTestResults
+  setTestResults, 
+  selectVisibleTestResults
 } from '@/features/testing/slice';
 import { selectCode } from '@/features/editor/slice';
 import { 
-  testPassed, 
-  testFailed,
+  testPassed,
   selectTestKeystrokesInfo
 } from '@/features/metrics/slice';
 import { evaluateCode } from '../utils/evaluate';
@@ -24,7 +22,6 @@ const TestExpectations: React.FC = () => {
   const dispatch = useDispatch();
   const code = useSelector(selectCode);
   const testCases = useSelector(selectTestCases);
-  const results = useSelector(selectTestResults);
   const visibleTests = useSelector(selectVisibleTests);
   const visibleTestResults = useSelector(selectVisibleTestResults);
   const allTestsPassing = useSelector(selectAllTestsPassing);

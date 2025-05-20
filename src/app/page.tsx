@@ -31,7 +31,7 @@ export default function Home() {
               {challenges.map(challenge => (
                 <Link 
                   key={challenge.id}
-                  href={`/start?challenge=${challenge.id}`}
+                  href={`/challenges/${challenge.id}`}
                   className="bg-white/90 backdrop-blur-sm rounded-lg shadow-md p-6 border border-green-700/20 hover:bg-white transition-colors"
                 >
                   <h2 className="text-xl font-semibold text-green-800 mb-2">
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
             
             <Link 
-              href="/start" 
+              href="/challenges/factorial" 
               className="start-button"
             >
               Start with Factorial

@@ -39,7 +39,10 @@ export default function StatsPage() {
       <header className="bg-white/80 backdrop-blur-sm border-b border-green-700/20 py-2 px-4">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold text-green-800">Test Putter</h1>
-          <Link href="/start" className="text-green-700 hover:text-green-900">
+          <Link 
+            href={currentChallengeId ? `/challenges/${currentChallengeId}` : '/challenges'}
+            className="text-green-700 hover:text-green-900"
+          >
             Back to Editor
           </Link>
         </div>
@@ -115,7 +118,7 @@ export default function StatsPage() {
           {/* Call to action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/start"
+              href={currentChallengeId ? `/challenges/${currentChallengeId}` : '/challenges'}
               className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-150 text-center"
             >
               Try Again

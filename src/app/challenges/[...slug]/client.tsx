@@ -4,10 +4,25 @@ import Link from 'next/link';
 import { KeystrokesCounter } from '@/features/metrics';
 import { CodeEditor } from '@/features/editor';
 import { TestExpectations } from '@/features/testing';
-import { useChallenge } from '../../features/challenges/hooks';
+import { useChallenge } from '@/features/challenges/hooks';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { challenges } from '@/features/challenges';
 
-export default function StartPage() {
-  const { challenges, currentChallenge, switchChallenge } = useChallenge();
+export default function ChallengeClient() {
+  const params = useParams();
+  const { currentChallenge, switchChallenge } = useChallenge();
+  
+  // Get challenge ID from slug
+  const slug = Array.isArray(params.slug) ? params.slug : [];
+  const challengeId = slug[0] || 'factorial';
+  
+  // Set the challenge based on the slug
+  useEffect(() => {
+    if (challengeId && challengeId !== currentChallenge?.id) {
+      switchChallenge(challengeId);
+    }
+  }, [challengeId, currentChallenge, switchChallenge]);
 
   return (
     <div className="golf-bg min-h-screen flex flex-col">
@@ -15,26 +30,10 @@ export default function StartPage() {
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-green-800">Test Putter</Link>
           
-          <div className="flex gap-4">
-            <div className="relative">
-              <select
-                className="bg-white border border-green-300 text-green-800 rounded-lg py-1 px-3 appearance-none cursor-pointer pr-8"
-                value={currentChallenge?.id || ''}
-                onChange={(e) => switchChallenge(e.target.value)}
-              >
-                {challenges.map(challenge => (
-                  <option key={challenge.id} value={challenge.id}>
-                    {challenge.name}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-green-800">
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
-            
+          <div className="flex gap-4 items-center">
+            <Link href="/challenges" className="text-green-700 hover:text-green-900">
+              Challenges
+            </Link>
             <Link href="/stats" className="text-green-700 hover:text-green-900">
               Stats
             </Link>
